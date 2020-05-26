@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,8 +55,7 @@ namespace Shop.Web
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseConfiguration(appConfiguration);
-                    webBuilder.UseSerilog();
-                });
+                }).UseSerilog();
 
         private static void ConfigureLogging()
         {
@@ -64,7 +64,11 @@ namespace Shop.Web
             var LogFile = string.Empty;
             var connString = appConfiguration.GetSection("ConfigSetting:ConnectionStrings")["DbConnectionString"];
             var tableName = "AppLog";
-
+            var columnOptions = new ColumnOptions();
+            columnOptions.Store.Remove(StandardColumn.Properties);
+            columnOptions.Store.Remove(StandardColumn.MessageTemplate);
+            columnOptions.Store.Add(StandardColumn.LogEvent);
+            columnOptions.TimeStamp.DataType = SqlDbType.DateTimeOffset;
             LogFile = Dir + "\\Logs\\AppLog.txt";
 
             Log.Logger = new LoggerConfiguration()
@@ -78,8 +82,10 @@ namespace Shop.Web
                         sinkOptions: new SinkOptions
                         {
                             TableName = tableName,
-                            AutoCreateSqlTable = true
+                            AutoCreateSqlTable = true,
+                            SchemaName = "dbo"
                         },
+                        columnOptions: columnOptions,
                         restrictedToMinimumLevel: LogEventLevel.Debug)
                         .CreateLogger();
         }

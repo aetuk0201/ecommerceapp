@@ -54,6 +54,8 @@ namespace Shop.Web.Controllers
 
             var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
 
+            _logger.LogInformation("Products retreived: {{{ string.Join(", ", data.Name)}}}");
+
             return new PagedList<ProductDto>(productSpecParams.PageIndex, productSpecParams.PageSize, totalItems, data);
         }
 
@@ -78,6 +80,8 @@ namespace Shop.Web.Controllers
             var product = await _productService.GetProductByIdWithSpec(spec);
 
             if (product == null) return NotFound(new ApiResponse(AppConstants.NotFound404));
+
+            _logger.LogInformation("Retrieved { Product } successfully", product.Name);
 
             return _mapper.Map<Product, ProductDto>(product);
         }
