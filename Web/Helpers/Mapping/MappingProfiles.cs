@@ -14,6 +14,12 @@ namespace Shop.Web.Helpers.Mapping
                 .ForMember(d => d.ProductType, o => o.MapFrom(s => s.ProductType.Name))
                 .ForMember(d => d.ImageUrl, o => o.MapFrom<ProductUrlResolver>())
                 .ReverseMap();
+
+            CreateMap<ProductType, ProductTypeDto>().ReverseMap();
+
+            CreateMap<Department, DepartmentDto>().ReverseMap();
+
+            CreateMap<Category, CategoryDto>().ReverseMap();
         }
     }
 }

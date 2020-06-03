@@ -23,7 +23,7 @@ namespace Infrastructure.Data.SpecificationEvaluators
 
             if (spec.OrderByDescending != null)
             {
-                query = query.OrderBy(spec.OrderByDescending);
+                query = query.OrderByDescending(spec.OrderByDescending);
             }
 
             //this must come last in the order

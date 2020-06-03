@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <section class="col-3">
+      <h5 class="text-waring ml-3 mt-4">Sort</h5>
+      <select class="custom-select my-3" (change)="onSortSelected($event.target.value)">
+        <option *ngFor="let sort of sortOptions" [value]="sort.value">{{
+          sort.name
+        }}</option>
+      </select>
+
+      <h5 class="text-waring ml-3">Departments</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item" *ngFor="let department of departments"
+          [class.active]="department.id === shopParams.departmentId" [value]="department.id"
+          (click)="onDepartmentSelected(department.id)">
+          {{ department.name }}
+        </li>
+      </ul>
+
+      <h5 class="text-waring ml-3">Categories</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item" *ngFor="let category of categories"
+          [class.active]="category.id === shopParams.categoryId" [value]="category.id"
+          (click)="onCategorySelected(category.id)">
+          {{ category.name }}
+        </li>
+      </ul>
+
+      <h5 class="text-waring ml-3">Product Types</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item" *ngFor="let productType of productTypes"
+          [class.active]="productType.id === shopParams.productTypeId" [value]="productType.id"
+          (click)="onProductTypeSelected(productType.id)">
+          {{ productType.name }}
+        </li>
+      </ul>
+    </section>
+
+    <section class="col-9">
+      <div class="d-flex justify-content-between align-items-center pb-2">
+
+        <app-paging-header [totalCount]="totalCount" [pageSize]="shopParams.pageSize"
+          [pageNumber]="shopParams.pageNumber">
+        </app-paging-header>
+
+        <div class="form-inline mt-2">
+          <input #search (keyup.enter)="onSearch(search.value)" type="text" class="form-control" style="width: 300px;"
+            placeholder="Search" />
+          <button (click)="onSearch(search.value)" class="btn btn-outline-primary ml-2 my-2">Search</button>
+          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- <div *ngIf="products$ | async as products"> -->
+        <div *ngFor="let item of products" class="col-4 mb-4">
+          <app-product-item [product]="item"></app-product-item>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
+        <app-paging [pageSize]="shopParams.pageSize" [totalCount]="totalCount" (pageChanged)="onPageChanged($event)">
+        </app-paging>
+        <!-- <p-paginator [totalRecords]="totalCount" (onPageChange)="onPageChanged($event)" [rows]="shopParams.pageSize"
+          [pageLinkSize]="5">
+        </p-paginator> -->
+      </div>
+    </section>
+  </div>
+</div>

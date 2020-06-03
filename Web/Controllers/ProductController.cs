@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Core.Constants;
 using Core.Entities;
+using Core.Interfaces;
 using Core.Specifications;
 using DomainService.Services;
 using Microsoft.AspNetCore.Http;
@@ -20,13 +21,22 @@ namespace Shop.Web.Controllers
     public class ProductController : BaseApiController
     {
         private readonly IProductService _productService;
+        private readonly IDepartmentService _departmentService;
+        private readonly ICategoryService _categoryService;
+        private readonly IProductTypeService _productTypeService;
         private readonly ILogger<ProductController> _logger;
         private readonly IMapper _mapper;
 
         public ProductController(IProductService productService,
+                                    IDepartmentService departmentService,
+                                    ICategoryService categoryService,
+                                    IProductTypeService productTypeService,
                                     IMapper mapper, ILogger<ProductController> logger)
         {
             _productService = productService;
+            _departmentService = departmentService;
+            _categoryService = categoryService;
+            _productTypeService = productTypeService;
             _mapper = mapper;
             _logger = logger;
         }
@@ -85,6 +95,28 @@ namespace Shop.Web.Controllers
 
             return _mapper.Map<Product, ProductDto>(product);
         }
+
+        public async Task<ActionResult<DepartmentDto>> GetDepartments()
+        {
+            var departments = await _departmentService.GetDepartments();
+
+            return Ok(_mapper.Map<IReadOnlyList<Department>, IReadOnlyList<DepartmentDto>>(departments));
+        }
+
+        public async Task<ActionResult<CategoryDto>> GetCategories()
+        {
+            var categories = await _categoryService.GetCategories();
+
+            return Ok(_mapper.Map<IReadOnlyList<Category>, IReadOnlyList<CategoryDto>>(categories));
+        }
+
+        public async Task<ActionResult<ProductTypeDto>> GetProductTypes()
+        {
+            var productTypes = await _productTypeService.GetProductTypes();
+
+            return Ok(_mapper.Map<IReadOnlyList<ProductType>, IReadOnlyList<ProductTypeDto>>(productTypes));
+        }
+
     }
 }
 

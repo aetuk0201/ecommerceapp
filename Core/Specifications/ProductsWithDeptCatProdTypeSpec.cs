@@ -13,8 +13,8 @@ namespace Core.Specifications
                                             x.DepartmentId == (int)productSpecParams.DepartmentId.Value) &&
                                         (!productSpecParams.CategoryId.HasValue ||
                                             x.CategoryId == (int)productSpecParams.CategoryId.Value) &&
-                                        (!productSpecParams.PropertyTypeId.HasValue ||
-                                            x.ProductTypeId == (int)productSpecParams.PropertyTypeId.Value))
+                                        (!productSpecParams.ProductTypeId.HasValue ||
+                                            x.ProductTypeId == (int)productSpecParams.ProductTypeId.Value))
         {
             AddInclude(x => x.Department);
             AddInclude(x => x.Category);

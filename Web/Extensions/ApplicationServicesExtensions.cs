@@ -14,6 +14,9 @@ namespace Web.Extensions
         {
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductTypeService, ProductTypeService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
 
             services.Configure<ApiBehaviorOptions>(options =>
                options.InvalidModelStateResponseFactory = actionContext =>

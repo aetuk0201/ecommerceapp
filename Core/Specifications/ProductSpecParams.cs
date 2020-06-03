@@ -4,7 +4,7 @@ namespace Core.Specifications
     {
         private const int MaxPageSize = 50;
         public int PageIndex { get; set; } = 1;
-        private int _pageSize = 6;
+        private int _pageSize = 3;
         public int PageSize
         {
             get => _pageSize;
@@ -12,7 +12,7 @@ namespace Core.Specifications
         }
         public int? DepartmentId { get; set; }
         public int? CategoryId { get; set; }
-        public int? PropertyTypeId { get; set; }
+        public int? ProductTypeId { get; set; }
         public string Sort { get; set; }
 
         private string _search;
