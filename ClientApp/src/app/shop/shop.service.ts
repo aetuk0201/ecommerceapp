@@ -74,6 +74,14 @@ export class ShopService {
       );
   }
 
+  getProduct(id: number): Observable<IProduct> {
+    const params = new HttpParams();
+    // params.set('productId', id.toString());{ params }
+    return this.http.get<IProduct>(
+      this.baseUrl + this.constants.getProductUrl + '?productId=' + id
+    );
+  }
+
   getDepartments(): Observable<IDepartment[]> {
     return this.http
       .get<IDepartment[]>(this.baseUrl + this.constants.getDepartmentsUrl)

@@ -1,14 +1,13 @@
 <div
-  class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top"
->
+  class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
   <div class="p-1 bd-highlight">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+    <h5 class="my-0 mr-md-auto font-weight-normal" [routerLink]="['/']">Company name</h5>
   </div>
   <div class="p-1 bd-highlight">
     <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
-      <a class="p-2 text-dark" href="#">Home</a>
-      <a class="p-2 text-dark" href="#">Shop</a>
-      <a class="p-2 text-dark" href="#">Contacts</a>
+      <a class="p-2" [routerLink]="['/']" routerLink="active"> Home</a>
+      <a class="p-2" [routerLink]="['/shop']" routerLink="active">Shop</a>
+      <a class="p-2" href="#">Contacts</a>
     </nav>
   </div>
   <div class="p-1 bd-highlight">
@@ -22,3 +21,5 @@
     </div>
   </div>
 </div>
+
+<!-- [routerLinkActiveOptions]="{exact: true}" -->

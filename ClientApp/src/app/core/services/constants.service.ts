@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConstantsService {
   getProductsUrl = '/api/product/GetProductsWithSpec';
-  getProductUrl = '/api/product/GetProductsWithSpecById';
+  getProductUrl = '/api/product/GetProductByIdWithSpec';
   getDepartmentsUrl = '/api/product/GetDepartments';
   getDepartmentByIdUrl = '/api/product/GetDepartmentById';
   getCategoriesUrl = '/api/product/GetCategories';

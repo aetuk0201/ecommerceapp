@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,13 +8,14 @@ import { PagingComponent } from './components/paging/paging.component';
 
 @NgModule({
   declarations: [PagingHeaderComponent, PagingComponent],
-  imports: [CommonModule, HttpClientModule, PaginatorModule],
+  imports: [CommonModule, HttpClientModule, PaginatorModule, RouterModule],
   exports: [
     CommonModule,
     HttpClientModule,
     PaginatorModule,
     PagingHeaderComponent,
     PagingComponent,
+    RouterModule,
   ],
 })
 export class SharedModule {}

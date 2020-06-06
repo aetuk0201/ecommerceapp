@@ -81,9 +81,9 @@ namespace Shop.Web.Controllers
             return _mapper.Map<Product, ProductDto>(product);
         }
 
-        [HttpGet("{productId:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [HttpGet]
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductDto>> GetProductByIdWithSpec(int productId)
         {
             var spec = new ProductsWithDeptCatProdTypeSpec(productId);
