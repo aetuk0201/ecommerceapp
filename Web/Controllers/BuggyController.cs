@@ -21,8 +21,9 @@ namespace Web.Controllers
             return "secret stuff";
         }
 
-        [HttpGet("notfound")]
-        public ActionResult GetNotFoundRequest()
+        //[HttpGet("notfound")]
+        [HttpGet]
+        public ActionResult notfound()
         {
             var thing = _context.Set<Product>().Find(42);
 
@@ -34,8 +35,9 @@ namespace Web.Controllers
             return Ok();
         }
 
-        [HttpGet("servererror")]
-        public ActionResult GetServerError()
+        //[HttpGet("servererror")]
+        [HttpGet]
+        public ActionResult servererror()
         {
             var thing = _context.Set<Product>().Find(42);
 
@@ -44,14 +46,16 @@ namespace Web.Controllers
             return Ok();
         }
 
-        [HttpGet("badrequest")]
-        public ActionResult GetBadRequest()
+        //[HttpGet("badrequest")]
+        [HttpGet]
+        public ActionResult badrequest()
         {
             return BadRequest(new ApiResponse(400));
         }
 
-        [HttpGet("{id}")]
-        public ActionResult GetBadRequest2(int id)
+        //[HttpGet("{id}")]
+        [HttpGet]
+        public ActionResult badrequest2(int id)
         {
             return Ok();
         }
