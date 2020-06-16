@@ -7,7 +7,7 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
-import { catchError } from 'rxjs/operators';
+import { catchError, delay } from 'rxjs/operators';
 import { MessageService } from 'primeng/api/';
 
 @Injectable()
@@ -19,6 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
+      // delay(1000),
       catchError((error) => {
         if (error) {
           if (error.status === 400) {

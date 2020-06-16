@@ -1,4 +1,6 @@
+import { CartService } from './cart/cart.service';
 import { Component, OnInit } from '@angular/core';
+import { ICart } from './shared/models/cart';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,20 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'The Shop';
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const cartId = localStorage.getItem('cart_id');
+
+    if (cartId) {
+      this.cartService.getCart(cartId).subscribe(
+        () => {
+          console.log('initialized cart');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
 }

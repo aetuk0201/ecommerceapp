@@ -1,3 +1,37 @@
 @import "styleVariables";
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../../node_modules/font-awesome/css/font-awesome.min.css";
+
+
+// -- ================= PrimgNg ================
+
+
+body .ui-breadcrumb ul li .ui-menuitem-link {
+  color: #333333;
+}
+
+body .ui-breadcrumb ul li .ui-menuitem {
+  color: #333333;
+
+}
+
+.ui-breadcrumb-home {
+  vertical-align: middle;
+
+}
+
+.ui-breadcrumb .ui-menuitem-text {
+  vertical-align: middle;
+  padding-bottom: 15px;
+}
+
+body .ui-breadcrumb ul li.ui-breadcrumb-chevron {
+  margin: 0 0.5em 0 0.5em;
+  color: #848484;
+  width: 10px;
+  font-size: 10px;
+}
+
+.ui-breadcrumb-chevron {
+  width: 10px;
+}

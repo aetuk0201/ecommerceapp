@@ -13,6 +13,10 @@ export class ConstantsService {
   getProductTypesUrl = '/api/product/GetProductTypes';
   getProductTypesByIdUrl = '/api/product/GetProductTypesById';
 
+  getCartByIdUrl = '/api/cart/GetCartById';
+  addUpdateCartUrl = '/api/cart/AddOrUpdateCart';
+  deleteCartUrl = '/api/cart/DeleteCart';
+
   // sort
   sortNameAsc = 'nameAsc';
   sortNameDesc = 'nameDesc';

@@ -11,17 +11,58 @@ import { ShopComponent } from './shop/shop.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'test-error', component: TestErrorComponent },
-  { path: 'server-error', component: ServerErrorComponent },
-  { path: 'not-found', component: NotFoundComponent },
-  { path: 'message', component: MessageComponent },
+  {
+    path: '',
+    data: {
+      breadcrumb: 'Home',
+    },
+    component: HomeComponent,
+  },
+  {
+    path: 'test-error',
+    data: {
+      breadcrumb: 'Test Error',
+    },
+    component: TestErrorComponent,
+  },
+  {
+    path: 'server-error',
+    data: {
+      breadcrumb: 'Server Error',
+    },
+    component: ServerErrorComponent,
+  },
+  {
+    path: 'not-found',
+    data: {
+      breadcrumb: 'Not Found',
+    },
+    component: NotFoundComponent,
+  },
+  {
+    path: 'message',
+    data: {
+      breadcrumb: 'Message',
+    },
+    component: MessageComponent,
+  },
   {
     path: 'shop',
     loadChildren: () =>
       import('./shop/shop.module').then((mod) => mod.ShopModule),
+    data: {
+      breadcrumb: 'Shop',
+    },
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  {
+    path: 'cart',
+    loadChildren: () =>
+      import('./cart/cart.module').then((mod) => mod.CartModule),
+    data: {
+      breadcrumb: '',
+    },
+  },
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
 
 @NgModule({
