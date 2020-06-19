@@ -1,5 +1,6 @@
 using System.Linq;
 using Core.Interfaces;
+using Core.Interfaces.ShoppingCart;
 using DomainService.Services;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,8 @@ namespace Web.Extensions
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+            services.AddScoped<ICartService, CartService>();
 
             services.Configure<ApiBehaviorOptions>(options =>
                options.InvalidModelStateResponseFactory = actionContext =>

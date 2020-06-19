@@ -96,6 +96,7 @@ namespace Shop.Web.Controllers
             return _mapper.Map<Product, ProductDto>(product);
         }
 
+        [HttpGet]
         public async Task<ActionResult<DepartmentDto>> GetDepartments()
         {
             var departments = await _departmentService.GetDepartments();
@@ -103,6 +104,7 @@ namespace Shop.Web.Controllers
             return Ok(_mapper.Map<IReadOnlyList<Department>, IReadOnlyList<DepartmentDto>>(departments));
         }
 
+        [HttpGet]
         public async Task<ActionResult<CategoryDto>> GetCategories()
         {
             var categories = await _categoryService.GetCategories();
@@ -110,6 +112,7 @@ namespace Shop.Web.Controllers
             return Ok(_mapper.Map<IReadOnlyList<Category>, IReadOnlyList<CategoryDto>>(categories));
         }
 
+        [HttpGet]
         public async Task<ActionResult<ProductTypeDto>> GetProductTypes()
         {
             var productTypes = await _productTypeService.GetProductTypes();

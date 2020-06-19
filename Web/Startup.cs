@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Web.Middleware;
 using Web.Extensions;
 using Lamar;
+using StackExchange.Redis;
 
 namespace Shop.Web
 {
@@ -23,11 +24,13 @@ namespace Shop.Web
     {
         public IConfiguration _config { get; }
         private readonly string _connString;
+        private readonly string _connStringRedis;
 
         public Startup(IConfiguration config)
         {
             _config = config;
             _connString = _config.GetSection("ConfigSetting:ConnectionStrings")["DbConnectionString"];
+            _connStringRedis = _config.GetSection("ConfigSetting:ConnectionStrings")["Redis"];
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,9 +40,17 @@ namespace Shop.Web
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_connString));
-            services.AddAutoMapper(typeof(MappingProfiles));
 
+            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_connString));
+
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var configuration = ConfigurationOptions.Parse(_connStringRedis, true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
+            services.AddAutoMapper(typeof(MappingProfiles));
+            //custom extension methods
             services.AddApplicationServices();
             services.AddSwaggerDocumentation();
 

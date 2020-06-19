@@ -9,6 +9,7 @@
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0"/>
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1"/>
     <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="4.3.0"/>
+    <PackageReference Include="StackExchange.Redis" Version="2.1.55"/>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

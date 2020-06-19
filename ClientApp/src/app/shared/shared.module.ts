@@ -7,9 +7,15 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api/';
 import { MessageComponent } from './components/message/message.component';
+import { OrderTotalsComponent } from './components/order-totals/order-totals.component';
 
 @NgModule({
-  declarations: [PagingHeaderComponent, PagingComponent, MessageComponent],
+  declarations: [
+    PagingHeaderComponent,
+    PagingComponent,
+    MessageComponent,
+    OrderTotalsComponent,
+  ],
   imports: [CommonModule, PaginatorModule, MessageModule, MessagesModule],
   providers: [MessageService],
   exports: [
@@ -20,6 +26,7 @@ import { MessageComponent } from './components/message/message.component';
     MessageModule,
     MessagesModule,
     MessageComponent,
+    OrderTotalsComponent,
   ],
 })
 export class SharedModule {}
