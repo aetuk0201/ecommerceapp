@@ -20,6 +20,7 @@ namespace Web.Extensions
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.Configure<ApiBehaviorOptions>(options =>
                options.InvalidModelStateResponseFactory = actionContext =>

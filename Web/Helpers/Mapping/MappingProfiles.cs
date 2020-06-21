@@ -1,5 +1,6 @@
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.Identity;
 using Web.Models;
 
 namespace Shop.Web.Helpers.Mapping
@@ -20,6 +21,8 @@ namespace Shop.Web.Helpers.Mapping
             CreateMap<Department, DepartmentDto>().ReverseMap();
 
             CreateMap<Category, CategoryDto>().ReverseMap();
+
+            CreateMap<Address, AddressDto>().ReverseMap();
         }
     }
 }

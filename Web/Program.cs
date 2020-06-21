@@ -5,9 +5,15 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entities.Identity;
+using Infrastructure.Data;
+using Infrastructure.Data.SeedData;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -25,27 +31,41 @@ namespace Shop.Web
          .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
          .AddEnvironmentVariables()
          .Build();
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             ConfigureLogging();
 
-            try
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
             {
-                Log.Logger.Information("starting application...");
+                var services = scope.ServiceProvider;
 
-                CreateHostBuilder(args).Build().Run();
+                try
+                {
+                    Log.Logger.Information("starting application...");
 
-                return 0;
+                    //seed user data - if not already in database
+                    var context = services.GetRequiredService<AppDbContext>();
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    await context.Database.MigrateAsync(); //applies any pending migration to the context
+                    await IdentitySeed.SeedUsersData(userManager);
+
+                    host.Run();
+
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "application terminated unexpectedly");
+                    return 1;
+                }
+                finally
+                {
+                    Log.CloseAndFlush();
+                }
+
             }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "application terminated unexpectedly");
-                return 1;
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
+
 
         }
 

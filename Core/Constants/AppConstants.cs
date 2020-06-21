@@ -18,5 +18,9 @@ namespace Core.Constants
         public const string priceAsc = "priceAsc";
         public const string priceDesc = "priceDesc";
 
+        //Token
+        public const string tokenIssuer = "Token:Issuer";
+        public const string tokenKey = "Token:Key";
+
     }
 }

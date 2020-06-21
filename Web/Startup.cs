@@ -17,6 +17,7 @@ using Web.Middleware;
 using Web.Extensions;
 using Lamar;
 using StackExchange.Redis;
+using Infrastructure.Identity;
 
 namespace Shop.Web
 {
@@ -25,12 +26,14 @@ namespace Shop.Web
         public IConfiguration _config { get; }
         private readonly string _connString;
         private readonly string _connStringRedis;
+        private readonly string _connStringIdentity;
 
         public Startup(IConfiguration config)
         {
             _config = config;
             _connString = _config.GetSection("ConfigSetting:ConnectionStrings")["DbConnectionString"];
             _connStringRedis = _config.GetSection("ConfigSetting:ConnectionStrings")["Redis"];
+            _connStringIdentity = _config.GetSection("ConfigSetting:ConnectionStrings")["IdentityConnectionString"];
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -43,6 +46,8 @@ namespace Shop.Web
 
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_connString));
 
+
+
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var configuration = ConfigurationOptions.Parse(_connStringRedis, true);
@@ -52,6 +57,7 @@ namespace Shop.Web
             services.AddAutoMapper(typeof(MappingProfiles));
             //custom extension methods
             services.AddApplicationServices();
+            services.AddIdentityServices(_config);
             services.AddSwaggerDocumentation();
 
             services.AddCors(options =>
@@ -80,6 +86,8 @@ namespace Shop.Web
             app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
