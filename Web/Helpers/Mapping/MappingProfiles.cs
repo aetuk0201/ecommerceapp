@@ -23,6 +23,10 @@ namespace Shop.Web.Helpers.Mapping
             CreateMap<Category, CategoryDto>().ReverseMap();
 
             CreateMap<Address, AddressDto>().ReverseMap();
+
+            CreateMap<CustomerCart, CustomerCartDto>().ReverseMap();
+
+            CreateMap<CartItem, CartItemDto>().ReverseMap();
         }
     }
 }

@@ -1,3 +1,5 @@
+import { AuthGuard } from './core/guards/auth.guard';
+import { AccountRoutingModule } from './account/account-routing.module';
 import { MessageComponent } from './shared/components/message/message.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
@@ -64,8 +66,17 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./checkout/checkout.module').then((mod) => mod.CheckoutModule),
+    data: {
+      breadcrumb: '',
+    },
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+      import('./account/account.module').then((mod) => mod.AccountModule),
     data: {
       breadcrumb: '',
     },

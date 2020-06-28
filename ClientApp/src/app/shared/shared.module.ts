@@ -8,6 +8,9 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api/';
 import { MessageComponent } from './components/message/message.component';
 import { OrderTotalsComponent } from './components/order-totals/order-totals.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { TextInputComponent } from './components/text-input/text-input.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +18,16 @@ import { OrderTotalsComponent } from './components/order-totals/order-totals.com
     PagingComponent,
     MessageComponent,
     OrderTotalsComponent,
+    TextInputComponent,
   ],
-  imports: [CommonModule, PaginatorModule, MessageModule, MessagesModule],
+  imports: [
+    CommonModule,
+    PaginatorModule,
+    MessageModule,
+    MessagesModule,
+    ReactiveFormsModule,
+    DropdownModule,
+  ],
   providers: [MessageService],
   exports: [
     CommonModule,
@@ -27,6 +38,9 @@ import { OrderTotalsComponent } from './components/order-totals/order-totals.com
     MessagesModule,
     MessageComponent,
     OrderTotalsComponent,
+    ReactiveFormsModule,
+    DropdownModule,
+    TextInputComponent,
   ],
 })
 export class SharedModule {}

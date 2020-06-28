@@ -14,7 +14,7 @@ namespace Web.Controllers
             _context = context;
         }
 
-        //[HttpGet("testauth")]
+        [HttpGet]
         [Authorize]
         public ActionResult<string> GetSecretText()
         {

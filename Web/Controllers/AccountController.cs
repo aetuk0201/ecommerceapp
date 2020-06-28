@@ -66,11 +66,7 @@ namespace Web.Controllers
         {
             var user = await _userManger.FindByUserClaimsPrincipalWithAddress(HttpContext.User);
 
-            //var addresses = _mapper.Map<IReadOnlyList<AddressDto>, IReadOnlyList<Address>>(addressesDto);            
-            //user.Addresses = addresses;
-
             var address = _mapper.Map<AddressDto, Address>(addressDto);
-            var addressToUpdate = user.Addresses.ToList().Find(x => x.Id == address.Id && x.AddressType == address.AddressType);
 
             user.Addresses.ToList().ForEach(x =>
             {
@@ -92,7 +88,7 @@ namespace Web.Controllers
             return BadRequest("Problem updating the user");
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _userManger.FindByEmailAsync(loginDto.Email);
@@ -114,6 +110,11 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
+            if (EmailExists(registerDto.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "email already in use. please choose another" } });
+            }
+
             var user = new AppUser
             {
                 FirstName = registerDto.FirstName,

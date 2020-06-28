@@ -1,19 +1,23 @@
 using System.Threading.Tasks;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces.ShoppingCart;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Web.Models;
 
 namespace Web.Controllers
 {
     public class CartController : BaseApiController
     {
-        private readonly ILogger<CartController> __logger;
+        private readonly ILogger<CartController> _logger;
         private readonly ICartService _cartService;
-        public CartController(ICartService cartService, ILogger<CartController> _logger)
+        private readonly IMapper _mapper;
+        public CartController(ICartService cartService, IMapper mapper, ILogger<CartController> logger)
         {
+            _mapper = mapper;
             _cartService = cartService;
-            __logger = _logger;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -24,11 +28,12 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerCart>> AddOrUpdateCart(CustomerCart cart)
+        public async Task<ActionResult<CustomerCartDto>> AddOrUpdateCart(CustomerCartDto cart)
         {
-            var updatedCart = await _cartService.AddUpdateCustomerCart(cart);
+            var customerCart = _mapper.Map<CustomerCartDto, CustomerCart>(cart);
+            var updatedCart = await _cartService.AddUpdateCustomerCart(customerCart);
 
-            return (updatedCart);
+            return _mapper.Map<CustomerCart, CustomerCartDto>(updatedCart);
         }
 
         [HttpDelete]
