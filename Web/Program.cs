@@ -35,7 +35,10 @@ namespace Shop.Web
         {
             ConfigureLogging();
 
+            // Get the IWebHost which will host this application.
             var host = CreateHostBuilder(args).Build();
+
+            // Find the service layer within our scope.
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -44,12 +47,13 @@ namespace Shop.Web
                 {
                     Log.Logger.Information("starting application...");
 
-                    //seed user data - if not already in database
+                    // Get the instance of appDbcontext in our services layer
                     var context = services.GetRequiredService<AppDbContext>();
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     await context.Database.MigrateAsync(); //applies any pending migration to the context
                     await IdentitySeed.SeedUsersData(userManager);
 
+                    // Continue to run the application
                     host.Run();
 
                     return 0;

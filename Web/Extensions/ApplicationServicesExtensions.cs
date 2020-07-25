@@ -1,5 +1,6 @@
 using System.Linq;
 using Core.Interfaces;
+using Core.Interfaces.Orders;
 using Core.Interfaces.ShoppingCart;
 using DomainService.Services;
 using Infrastructure.Data.Repositories;
@@ -14,6 +15,7 @@ namespace Web.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<ICategoryService, CategoryService>();
@@ -21,6 +23,8 @@ namespace Web.Extensions
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IOrderService, OrderService>();
+
 
             services.Configure<ApiBehaviorOptions>(options =>
                options.InvalidModelStateResponseFactory = actionContext =>

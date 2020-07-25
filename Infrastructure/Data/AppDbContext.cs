@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Entities.Identity;
+using Core.Entities.Orders;
 using Infrastructure.Data.Config;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,14 @@ namespace Infrastructure.Data
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+
+        public new DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
+        {
+            return base.Set<TEntity>();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +39,8 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new DeliveryMethodConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductOrderedConfiguration());
         }
 
     }
