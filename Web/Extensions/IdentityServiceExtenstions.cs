@@ -21,7 +21,8 @@ namespace Web.Extensions
             builder.AddEntityFrameworkStores<AppDbContext>();
             builder.AddSignInManager<SignInManager<AppUser>>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

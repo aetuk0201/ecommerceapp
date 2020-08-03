@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Core.Entities.Orders
 {
     public class ProductOrdered
@@ -13,6 +16,7 @@ namespace Core.Entities.Orders
             ImageUrl = imageUrl;
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductOrderedId { get; set; }
         public string ProductName { get; set; }
         public string ImageUrl { get; set; }
