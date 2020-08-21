@@ -36,7 +36,7 @@ namespace DomainService.Services
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(7),
                 SigningCredentials = credentials,
-                Issuer = _config[AppConstants.tokenIssuer]
+                Issuer = _config[AppConstants.tokenIssuer],
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

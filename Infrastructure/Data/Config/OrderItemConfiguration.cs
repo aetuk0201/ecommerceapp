@@ -10,8 +10,13 @@ namespace Infrastructure.Data.Config
         {
             builder.ToTable("OrderItem");
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.OwnsOne(i => i.ItemOrdered, io => { io.WithOwner(); });
-
+            builder.OwnsOne(i => i.ItemOrdered, io =>
+            {
+                io.WithOwner();
+                io.Property(i => i.ProductOrderedId).HasColumnName("ProductOrderedId");
+                io.Property(i => i.ProductName).HasColumnName("ProductName");
+                io.Property(i => i.ImageUrl).HasColumnName("ImageUrl");
+            });
             builder.Property(i => i.Price).HasColumnType("decimal(18,2)");
         }
     }

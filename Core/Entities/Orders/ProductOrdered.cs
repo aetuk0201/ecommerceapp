@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Entities.Orders
 {
+    [Owned]
     public class ProductOrdered
     {
         public ProductOrdered()
@@ -16,9 +18,10 @@ namespace Core.Entities.Orders
             ImageUrl = imageUrl;
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductOrderedId { get; set; }
         public string ProductName { get; set; }
+
+
         public string ImageUrl { get; set; }
     }
 }

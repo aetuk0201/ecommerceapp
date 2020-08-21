@@ -8,6 +8,7 @@ using Core.Entities.Orders;
 using Core.Interfaces;
 using Core.Interfaces.Orders;
 using Core.Interfaces.ShoppingCart;
+using Core.Specifications;
 using Infrastructure.Data.Repositories;
 
 namespace DomainService.Services
@@ -63,19 +64,23 @@ namespace DomainService.Services
             return order;
         }
 
-        public Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethods()
+        public async Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethods()
         {
-            throw new System.NotImplementedException();
+            return await _unitOfWork.Repository<DeliveryMethod>().GetAll();
         }
 
-        public Task<Order> GetOrderById(int id, string customerEmail)
+        public async Task<Order> GetOrderById(int id, string customerEmail)
         {
-            throw new System.NotImplementedException();
+            var spec = new OrdersWithItemsAndOrderingSpecification(id, customerEmail);
+
+            return await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
         }
 
-        public Task<IReadOnlyList<Order>> GetOrdersForUser(string customerEmail)
+        public async Task<IReadOnlyList<Order>> GetOrdersForUser(string customerEmail)
         {
-            throw new System.NotImplementedException();
+            var spec = new OrdersWithItemsAndOrderingSpecification(customerEmail);
+
+            return await _unitOfWork.Repository<Order>().GetAllWithSpec(spec);
         }
     }
 }

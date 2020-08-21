@@ -40,7 +40,7 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new DeliveryMethodConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductOrderedConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
         }
 
     }
