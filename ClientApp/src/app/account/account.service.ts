@@ -2,12 +2,13 @@ import { IRegisterInfo } from './../shared/models/registerInfo';
 import { Router } from '@angular/router';
 import { ConstantsService } from './../core/services/constants.service';
 import { IAppUser } from './../shared/models/appUser';
-import { BehaviorSubject, ReplaySubject, of } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.dev';
 import { map } from 'rxjs/operators';
 import { ILoginInfo } from '../shared/models/loginInfo';
+import { IAddress } from '../shared/models/address';
 
 @Injectable({
   providedIn: 'root',
@@ -82,6 +83,19 @@ export class AccountService {
   emailExists(email: string) {
     return this.http.get(
       this.baseUrl + this.constantsService.emailExistsUrl + '?email=' + email
+    );
+  }
+
+  getUserAddress(): Observable<IAddress> {
+    return this.http.get<IAddress>(
+      this.baseUrl + this.constantsService.getUserAddressUrl
+    );
+  }
+
+  updateUserAddress(address: IAddress): Observable<IAddress> {
+    return this.http.post<IAddress>(
+      this.baseUrl + this.constantsService.getUserAddressUrl,
+      address
     );
   }
 }

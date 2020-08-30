@@ -1,3 +1,4 @@
+import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 import { CheckoutComponent } from './checkout.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +11,13 @@ const routes: Routes = [
       breadcrumb: 'Checkout',
     },
     component: CheckoutComponent,
+  },
+  {
+    path: 'success',
+    data: {
+      breadcrumb: 'Checkout Success',
+    },
+    component: CheckoutSuccessComponent,
   },
 ];
 

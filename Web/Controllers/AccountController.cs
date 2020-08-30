@@ -51,13 +51,15 @@ namespace Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IReadOnlyList<AddressDto>> GetUserAddress()
+        public async Task<AddressDto> GetUserAddress()
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
             var user = await _userManger.FindByUserClaimsPrincipalWithAddress(HttpContext.User);
 
-            return _mapper.Map<IReadOnlyList<Address>, IReadOnlyList<AddressDto>>(user.Addresses);
+            var shippingAddress = user.Addresses.FirstOrDefault(x => x.AddressType == "Home");
+
+            return _mapper.Map<Address, AddressDto>(shippingAddress);
         }
 
         [Authorize]

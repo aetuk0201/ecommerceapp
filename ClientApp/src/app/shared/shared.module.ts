@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
@@ -11,6 +12,9 @@ import { OrderTotalsComponent } from './components/order-totals/order-totals.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { TextInputComponent } from './components/text-input/text-input.component';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,8 @@ import { TextInputComponent } from './components/text-input/text-input.component
     MessageComponent,
     OrderTotalsComponent,
     TextInputComponent,
+    StepperComponent,
+    CartSummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +33,8 @@ import { TextInputComponent } from './components/text-input/text-input.component
     MessagesModule,
     ReactiveFormsModule,
     DropdownModule,
+    CdkStepperModule,
+    RouterModule,
   ],
   providers: [MessageService],
   exports: [
@@ -41,6 +49,9 @@ import { TextInputComponent } from './components/text-input/text-input.component
     ReactiveFormsModule,
     DropdownModule,
     TextInputComponent,
+    CdkStepperModule,
+    StepperComponent,
+    CartSummaryComponent,
   ],
 })
 export class SharedModule {}

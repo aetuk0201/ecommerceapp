@@ -1,3 +1,4 @@
+import { IDeliveryMethod } from './../shared/models/deliveryMethod';
 import { ICartItem } from './../shared/models/cartItem';
 import { IProduct } from './../shared/models/product';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +24,11 @@ export class CartService {
     private http: HttpClient,
     private constantsService: ConstantsService
   ) {}
+
+  setShippingPrice(deliveryMethod: IDeliveryMethod) {
+    this.shippingCost = deliveryMethod.price;
+    this.calculateTotals();
+  }
 
   getCart(id: string) {
     return this.http
@@ -100,12 +106,22 @@ export class CartService {
         () => {
           this.cartSource.next(null);
           this.cartTotalSource.next(null);
-          localStorage.removeItem('cart_id');
+          if (localStorage.getItem('cart_id') != null) {
+            localStorage.removeItem('cart_id');
+          }
         },
         (error) => {
           this.handleError(error);
         }
       );
+  }
+
+  deleteCartFromLocalStorage(id: string) {
+    this.cartSource.next(null);
+    this.cartTotalSource.next(null);
+    if (localStorage.getItem('cart_id') != null) {
+      localStorage.removeItem('cart_id');
+    }
   }
 
   private addOrUpdateItem(

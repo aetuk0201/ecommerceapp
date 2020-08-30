@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './core/Interceptors/jwt-interceptor';
 import { CartModule } from './cart/cart.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,6 +31,7 @@ import { ErrorInterceptor } from './core/Interceptors/error-interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
